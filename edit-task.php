@@ -9,6 +9,9 @@ $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
     header('Location: index.php');
 }
+if($_SESSION['user_role']!=1){
+header("location:task.php");
+}
 
 // check admin
 $user_role = $_SESSION['user_role'];
@@ -167,11 +170,11 @@ include("includes/sidebar.php");
 
 <script type="text/javascript">
   flatpickr('#t_start_time', {
-    enableTime: true
+    enableTime: false
   });
 
   flatpickr('#t_end_time', {
-    enableTime: true
+    enableTime: false
   });
 
 </script>

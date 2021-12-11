@@ -124,6 +124,71 @@ $page_name="Task_Info";
     </div>
   </div>
 </div>
+<!-- ========================================== -->
+
+<!---Modal Call using the class--->
+
+<!---Modal--->
+<div class="modal fade user-registration" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Filter Task</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+  <h5>Search task of specific date</h5>
+  <hr>
+  <div class="row">
+  <div class="input-group col-6">
+    <div class="input-group-prepend">
+      <div class="input-group-text" id="btnGroupAddon">
+      <span class='mdi mdi-calendar  d-inline' ></span>
+      </div>
+    </div>
+    <input type="text" class="form-control" style="height:100%" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon">
+  </div>
+  <button class="btn btn-info" id="date_task">></button>
+   
+  </div>
+<hr>
+<h5>Search task of between date</h5>
+  <hr>
+  <div class="row">
+  <div class="input-group col-6">
+    <div class="input-group-prepend">
+      <div class="input-group-text" id="btnGroupAddon">
+      <span class='mdi mdi-calendar  d-inline' ></span>
+      </div>
+    </div>
+    <input type="text" class="form-control" style="height:100%" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon">
+  <span class="d-inline m-3">-</span>
+  <div class="input-group-prepend">
+      <div class="input-group-text" id="btnGroupAddon">
+      <span class='mdi mdi-calendar  d-inline' ></span>
+      </div>
+    </div>
+    <input type="text" class="form-control" style="height:100%" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon">
+  
+  
+  </div>
+  <button class="btn btn-info" id="date_task">></button>
+   
+  </div>
+
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-success">Submit</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- =============================================  -->
 
 
 
@@ -145,7 +210,9 @@ include("includes/sidebar.php");
               </div>
             </div>
             <?php if($user_role == 1){ ?>
-               
+  
+<button class="btn btn-warning btn-menu m-3 float-left" data-toggle="modal" data-target=".user-registration">Filter</button>
+
                   <button class="btn btn-warning btn-menu m-3 float-right" data-toggle="modal" data-target="#myModal">Assign New Task</button>
                 
               <?php } ?>
