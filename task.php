@@ -172,7 +172,7 @@ include("includes/sidebar.php");
                   $sql = "SELECT a.*, b.fullname 
                         FROM task_info a
                         INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                        ORDER BY a.task_id DESC";
+                        ORDER BY a.t_end_time DESC";
                 }else{
                   $sql = "SELECT a.*, b.fullname 
                   FROM task_info a
@@ -219,17 +219,23 @@ include("includes/sidebar.php");
                   </td>
   
                  <td>
-                  <a title="Update Task"  href="edit-task.php?task_id=<?php echo $row['task_id'];?>">
-                  <span class="mdi mdi-lead-pencil d-inline text-light h5"></span>
-               
-                </a>&nbsp;&nbsp;
+                 
                   <a title="View" href="task-details.php?task_id=<?php echo $row['task_id']; ?>">
                 <span class="mdi mdi-folder d-inline text-light h5"></span>
                   <?php if($user_role == 1){ ?>
+                    <a title="Update Task"  href="edit-task.php?task_id=<?php echo $row['task_id'];?>">
+                  <span class="mdi mdi-lead-pencil d-inline text-light h5"></span>
+               
+                </a>&nbsp;&nbsp;
                   <a title="Delete" href="?delete_task=delete_task&task_id=<?php echo $row['task_id']; ?>" onclick=" return check_delete();">
                   <span class="mdi mdi-delete d-inline text-light h5"></span>
                 </a></td>
-                <?php } ?>
+                <?php }else{
+                  echo "<a  href='empupdate.php?task_id={$row['task_id']}'>
+                  <span class='mdi mdi-check-circle  d-inline text-light h5' style='color:#4CCEAC !important'></span>
+               
+                </a>&nbsp;&nbsp";
+                } ?>
                 </tr>
                 <?php } ?>
                         </tbody>
@@ -247,11 +253,11 @@ include("includes/sidebar.php");
 
 <script type="text/javascript">
   flatpickr('#t_start_time', {
-    enableTime: true
+    enableTime: false
   });
 
   flatpickr('#t_end_time', {
-    enableTime: true
+    enableTime: false
   });
 
 </script>

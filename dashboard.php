@@ -9,10 +9,16 @@ $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
     header('Location: index.php');
 }
+// check admin 
+$user_role = $_SESSION['user_role'];
+if($user_role != 1){
+  header('Location: task.php');
+}
 
-
+$countresult = $obj_admin->countDash($_POST);
 
 $page_name="Dashboard";
+
 
 
 
@@ -52,7 +58,7 @@ include("includes/sidebar.php");
                      <h3>Task In Progress </h3>
                      
                     </div>
-                    <p class="text-black text-center"><h2>3</h2></p>
+                    <p class="text-black text-center"><h2><?php echo $countresult[1]?></h2></p>
                    
                   </div>
                 </div>
@@ -63,7 +69,7 @@ include("includes/sidebar.php");
                     <div class="d-flex justify-content-between">
                      <h3>Task Completed</h3>
                     </div>
-                   <h1>5</h1>
+                   <h1><?php echo $countresult[2]?></h1>
                    
                   </div>
                 </div>
@@ -74,7 +80,7 @@ include("includes/sidebar.php");
                     <div class="d-flex justify-content-between">
                      <h3>Task Incomplete</h3>
                     </div>
-                  <h2>10</h2>
+                  <h2><?php echo $countresult[0]?></h2>
                     
                   </div>
                 </div>
@@ -85,7 +91,7 @@ include("includes/sidebar.php");
                     <div class="d-flex justify-content-between">
                      <h3>Number of user</h3>
                     </div>
-                   <h3>50</h3>
+                   <h3><?php echo $countresult[3] ?></h3>
                   </div>
                 </div>
               </div>

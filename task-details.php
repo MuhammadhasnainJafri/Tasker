@@ -29,7 +29,15 @@ LEFT JOIN tbl_admin b ON(a.t_user_id = b.user_id)
 WHERE task_id='$task_id'";
 $info = $obj_admin->manage_all_info($sql);
 $row = $info->fetch(PDO::FETCH_ASSOC);
-
+$host_name='localhost';
+$user_name='root';
+$password='';
+$db_name='etmsh';
+$conn = new mysqli($host_name, $user_name, $password, $db_name);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+} 
 ?>
 
 <!DOCTYPE html>
@@ -88,17 +96,54 @@ include("includes/sidebar.php");
 											                      echo "Incomplete";
 											                    } ?></td>
 				                      </tr>
+                                  <?php
+                                  $user_id=$row['t_user_id'];
+                                  $sql="SELECT * from record where user_id=$user_id and  task_id=$task_id";
+                                  $result = $conn->query($sql);
+                                  if ($result->num_rows > 0) {
+                                    // output data of each row
+                                    while($record = $result->fetch_assoc()) {
+                                     ?>
+                                      
+                               <tr>
+                                    <td>Any Description</td>
+                                  <td>
+                                  
+                                  <?php  
+                                    echo $record['description'];
+                                  ?>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td>Work Image</td>
+                                  <td>
+                                  
+                                  <img src="uploads/<?php  echo $record['picture'] ?>" alt="picture here" width="100" style="display:block;">
+                             
+                                  </td>
+                                  </tr>
+                                
+                                   <?php }}
 
+?>
+                               
 				                    </tbody>
 				                  </table>
 				                </div>
 
-                            
+                        <a title="Update Task"  href="edit-task.php?task_id=<?php echo $_GET['task_id'];?>" class="btn btn-success-custom btn-lg mt-3 float-right ml-3 bg-info">
+                                   Update Task </a>
 
-                                <a title="Update Task"  href="task.php" class="btn btn-success-custom btn-lg mt-3 float-right">
+
+                                <a   href="task.php" class="btn btn-success-custom btn-lg mt-3 float-right">
                                    Go Back </a>
-                             
-                            
+                                   
+
+
+
+
+
+
 
 
 

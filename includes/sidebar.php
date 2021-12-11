@@ -8,6 +8,7 @@
         </div>
         <ul class="navigation-menu">
           <li class="nav-category-divider">MAIN</li>
+          <?php if($_SESSION['user_role']==1){?>
           <li>
             <a href="dashboard.php">
               <span class="link-title">Dashboard</span>
@@ -21,6 +22,7 @@
               <i class=" mdi mdi-bullseye link-icon"></i>
             </a>
           </li>
+          <?php  } ?>
           <li>
             <a href="task.php">
               <span class="link-title">Tasks</span>

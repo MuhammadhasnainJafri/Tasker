@@ -131,6 +131,23 @@ include("includes/sidebar.php");
                
               </div>
             </div>
+           
+            <?php  
+            if(isset($_SESSION['error'])){
+              echo "<h3 class='h4 bg-danger text-white p-2'>{$_SESSION['error']}</h3>";
+              unset($_SESSION['error']);
+            }
+            if(isset($_SESSION['error1'])){
+              echo "<h3 class='h4 bg-danger text-white p-2'>{$_SESSION['error1']}</h3>";
+              unset($_SESSION['error1']);
+            }
+            if(isset($_SESSION['error2'])){
+              echo "<h3 class='h4 bg-danger text-white p-2'>{$_SESSION['error2']}</h3>";
+              unset($_SESSION['error2']);
+            }
+
+
+?>
             <?php if(isset($error)){ ?>
           <script type="text/javascript">
             $('#myModal').modal('show');

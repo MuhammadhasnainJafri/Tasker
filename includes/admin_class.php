@@ -53,7 +53,7 @@ class Admin_Class
           		if($userRow['temp_password'] == null){
 	                header('Location: task.php');
           		}else{
-          			header('Location: changePasswordForEmployee.php');
+          			header('Location: task.php');
           		}
                 
              
@@ -150,13 +150,16 @@ class Admin_Class
 
 			if($total_email != 0 && $total_username != 0){
 				$message = "Email and Password both are already taken";
+				$_SESSION['error1']="This email is already been taken";
             	return $message;
 
 			}elseif($total_username != 0){
+				$_SESSION['error2']="This username is already been taken";
 				$message = "Username Already Taken";
             	return $message;
 
 			}elseif($total_email != 0){
+				$_SESSION['error']="This email is already been taken";
 				$message = "Email Already Taken";
             	return $message;
 
@@ -320,7 +323,7 @@ class Admin_Class
 		$t_start_time = $this->test_form_input_data($data['t_start_time']);
 		$t_end_time = $this->test_form_input_data($data['t_end_time']);
 		$assign_to = $this->test_form_input_data($data['assign_to']);
-
+		
 		try{
 			$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, 	t_end_time, t_user_id) VALUES (:x, :y, :z, :a, :b) ");
 
@@ -347,6 +350,12 @@ class Admin_Class
 			$t_start_time = $this->test_form_input_data($data['t_start_time']);
 			$t_end_time = $this->test_form_input_data($data['t_end_time']);
 			$status = $this->test_form_input_data($data['status']);
+			$record_id = $this->test_form_input_data($data['record_id']);
+			
+			$task_complete_description = $this->test_form_input_data($data['task_complete_description']);
+			$uniquesavename=time().uniqid(rand(0,10000));
+			
+	
 
 			if($user_role == 1){
 				$assign_to = $this->test_form_input_data($data['assign_to']);
@@ -359,8 +368,8 @@ class Admin_Class
 			}
 
 			try{
+				if($user_role == 1){
 				$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c WHERE task_id = :id ");
-
 				$update_task->bindparam(':x', $task_title);
 				$update_task->bindparam(':y', $task_description);
 				$update_task->bindparam(':z', $t_start_time);
@@ -368,6 +377,45 @@ class Admin_Class
 				$update_task->bindparam(':b', $assign_to);
 				$update_task->bindparam(':c', $status);
 				$update_task->bindparam(':id', $task_id);
+			}else{
+				
+				$file_name = $_FILES['image']['name'];
+				$file_size =$_FILES['image']['size'];
+				$file_tmp =$_FILES['image']['tmp_name'];
+				$file_type=$_FILES['image']['type'];
+				$file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+                $extensions= array("jpeg","jpg","png");
+                if(in_array($file_ext,$extensions)=== false){
+               $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+			   exit;
+                }
+				if(empty($errors)==true){
+					
+					move_uploaded_file($file_tmp,"uploads/{$uniquesavename}".$file_name);
+					
+				 }else{
+					print_r($errors);
+				 }
+
+
+
+
+
+
+
+				 $update_task = $this->db->prepare("UPDATE task_info SET  status = $status WHERE task_id = $task_id ");
+				 $newfilename=$uniquesavename.$file_name;
+				 if($record_id==''){
+					$record = $this->db->prepare("INSERT INTO `record`(`user_id`, `task_id`, `picture`, `description`) VALUES ('$assign_to','$task_id','$newfilename','$task_complete_description')");
+					$record->execute();
+				}else{
+					$record = $this->db->prepare("UPDATE `record` SET `user_id`='$assign_to',`task_id`='$task_id',`picture`='$newfilename',`description`='$task_complete_description' WHERE task_id = $task_id and user_id=$assign_to");
+					$record->execute();
+				}
+				
+				 
+				}
+				
 
 				$update_task->execute();
 
@@ -457,6 +505,15 @@ class Admin_Class
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 		}
+	}
+
+
+	public function countDash(){
+		$incomplete = $this->db->query("select count(task_id) from  task_info where status = 0")->fetchColumn();
+		$progress = $this->db->query("select count(task_id) from  task_info where status = 1")->fetchColumn();
+		$complete = $this->db->query("select count(task_id) from  task_info where status = 2")->fetchColumn();
+		$users = $this->db->query("select count(user_id) from  tbl_admin")->fetchColumn();
+		return [$incomplete,$progress,$complete,$users];
 	}
 
 
