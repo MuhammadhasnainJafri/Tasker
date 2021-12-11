@@ -163,25 +163,30 @@ $page_name="Task_Info";
       <span class='mdi mdi-calendar  d-inline' ></span>
       </div>
     </div>
-    <input type="text"  class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
+    <input type="text" id="d2"  class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
   <span class="d-inline m-3">-</span>
   <div class="input-group-prepend">
       <div class="input-group-text" id="btnGroupAddon">
       <span class='mdi mdi-calendar  d-inline' ></span>
       </div>
     </div>
-    <input type="text" class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
+    <input type="text" id="d3" class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
   
   
   </div>
-  <button class="btn btn-info" id="date_task">></button>
+  <button class="btn btn-info" id="date_task" onclick="gettaskbetween(document.getElementById('d2'),document.getElementById('d3'))" >></button>
    
+  </div>
+  <div class="row mt-3">
+  <button class="btn btn-primary ml-3" onclick="statusresult(2)">Completed task</button>
+  <button class="btn btn-danger ml-3" onclick="statusresult(0)">Incomplete task</button>
+  <button class="btn btn-warning ml-3" onclick="statusresult(1)">Progress task</button>
   </div>
 
 
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
 <button type="button" class="btn btn-success">Submit</button>
 </div>
 </div>
@@ -232,7 +237,7 @@ include("includes/sidebar.php");
                             <th>Action</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody">
                          
                           <?php 
                 if($user_role == 1){
@@ -245,7 +250,7 @@ include("includes/sidebar.php");
                   FROM task_info a
                   INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
                   WHERE a.t_user_id = $user_id
-                  ORDER BY a.task_id DESC";
+                  ORDER BY a.t_end_time DESC";
                 } 
                 
                   $info = $obj_admin->manage_all_info($sql);
@@ -318,9 +323,40 @@ include("includes/sidebar.php");
           </div>
 
 <script>
-  function gettask(date){
-    alert(date.value);
+  function updatestatus(){
+    var dt = new Date();
+    var date=dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+    date=date.trim();
+    $.ajax({url: "update-status.php?date="+date, success: function(result){
+   $('#tbody').html(result);
+   
+  }});
   }
+  function statusresult(d){
+    
+    $.ajax({url: "get_by_status.php?status="+d, success: function(result){
+   $('#tbody').html(result);
+   $('#close').click();
+  }});
+  }
+  function gettask(date){
+    // get_specific_date.php
+    $.ajax({url: "get_specific_date.php?date="+date.value, success: function(result){
+   $('#tbody').html(result);
+   $('#close').click();
+  }});
+  }
+  function gettaskbetween(date1,date2){
+    // get_specific_date.php
+    $.ajax({url: "get_specific_date.php?date1="+date1.value+"&date2="+date2.value, success: function(result){
+   $('#tbody').html(result);
+   $('#close').click();
+  }});
+  }
+
+  
+
+  
 </script>
         
           <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -343,4 +379,7 @@ include("includes/sidebar.php");
         include('includes/footer.php');
         ?>
   </body>
+  <script>
+    updatestatus();
+    </script>
 </html>

@@ -427,6 +427,14 @@ class Admin_Class
 			}
 
 		}
+		//update status
+	function updateStatus($date){
+		$query="UPDATE `task_info` SET `status`='3' WHERE `t_end_time`<'$date' AND `status`=0 ";
+		$updateStatus = $this->db->prepare($query);
+		$updateStatus->execute();
+
+
+	}
 
 
 	/* =================Attendance Related===================== */
