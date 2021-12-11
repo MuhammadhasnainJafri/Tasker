@@ -148,13 +148,13 @@ $page_name="Task_Info";
       <span class='mdi mdi-calendar  d-inline' ></span>
       </div>
     </div>
-    <input type="text" class="form-control" style="height:100%" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon">
+    <input type="text"  id="d1" class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
   </div>
-  <button class="btn btn-info" id="date_task">></button>
+  <button class="btn btn-info" onclick="gettask(document.getElementById('d1'))">></button>
    
   </div>
-<hr>
-<h5>Search task of between date</h5>
+
+<h5 class="h5 hr" style=" border-bottom: 3px solid darken('#165578', 10);">Search task of between date</h5>
   <hr>
   <div class="row">
   <div class="input-group col-6">
@@ -163,14 +163,14 @@ $page_name="Task_Info";
       <span class='mdi mdi-calendar  d-inline' ></span>
       </div>
     </div>
-    <input type="text" class="form-control" style="height:100%" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon">
+    <input type="text"  class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
   <span class="d-inline m-3">-</span>
   <div class="input-group-prepend">
       <div class="input-group-text" id="btnGroupAddon">
       <span class='mdi mdi-calendar  d-inline' ></span>
       </div>
     </div>
-    <input type="text" class="form-control" style="height:100%" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon">
+    <input type="text" class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
   
   
   </div>
@@ -316,13 +316,22 @@ include("includes/sidebar.php");
 
             </div>
           </div>
+
+<script>
+  function gettask(date){
+    alert(date.value);
+  }
+</script>
+        
           <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script type="text/javascript">
   flatpickr('#t_start_time', {
     enableTime: false
   });
-
+  flatpickr('.date', {
+    enableTime: false
+  });
   flatpickr('#t_end_time', {
     enableTime: false
   });
