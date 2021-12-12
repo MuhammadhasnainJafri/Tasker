@@ -351,6 +351,7 @@ class Admin_Class
 			$t_end_time = $this->test_form_input_data($data['t_end_time']);
 			$status = $this->test_form_input_data($data['status']);
 			$address = $this->test_form_input_data($data['address']);
+			$coordinates = $this->test_form_input_data($data['coordinates']);
 			$record_id = $this->test_form_input_data($data['record_id']);
 			
 			$task_complete_description = $this->test_form_input_data($data['task_complete_description']);
@@ -408,10 +409,10 @@ class Admin_Class
 				 $update_task = $this->db->prepare("UPDATE task_info SET  status = $status WHERE task_id = $task_id ");
 				 $newfilename=$uniquesavename.$file_name;
 				 if($record_id==''){
-					$record = $this->db->prepare("INSERT INTO `record`(`user_id`, `task_id`, `picture`, `description`) VALUES ('$assign_to','$task_id','$newfilename','$task_complete_description')");
+					$record = $this->db->prepare("INSERT INTO `record`(`user_id`, `task_id`, `picture`, `description`,`coordinate`) VALUES ('$assign_to','$task_id','$newfilename','$task_complete_description','$coordinates')");
 					$record->execute();
 				}else{
-					$record = $this->db->prepare("UPDATE `record` SET `user_id`='$assign_to',`task_id`='$task_id',`picture`='$newfilename',`description`='$task_complete_description' WHERE task_id = $task_id and user_id=$assign_to");
+					$record = $this->db->prepare("UPDATE `record` SET `user_id`='$assign_to',`task_id`='$task_id',`picture`='$newfilename',`description`='$task_complete_description',`coordinate`='$coordinates' WHERE task_id = $task_id and user_id=$assign_to");
 					$record->execute();
 				}
 				

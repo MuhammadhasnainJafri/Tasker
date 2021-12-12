@@ -79,6 +79,7 @@ include("includes/sidebar.php");
                       <div class="row mb-3">
                         <div class="col-md-8 mx-auto">
                         <form class="form-horizontal" role="form" action="" method="post" autocomplete="off" enctype="multipart/form-data">
+                        <input type="hidden"  name="coordinates" id="coordinates">
                         <div class="form-group row showcase_row_area">
                             <div class="col-md-3 showcase_text_area">
                               <label for="inputType1">Status</label>
@@ -163,7 +164,7 @@ include("includes/sidebar.php");
                              
                             </div>
                             <div class="col-md-9 mt-2 showcase_content_area">
-                            <button type="submit" name="update_task_info" class="btn btn-success">Update Now</button>
+                            <button type="submit" id="submitbtn" disabled name="update_task_info" class="btn btn-success">Update Now</button>
 
                           </div>
                           </div>
@@ -259,6 +260,21 @@ include("includes/sidebar.php");
 
             </div>
           </div>
+          <script>
+            function coordinate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function showPosition(position) {
+  document.getElementById('coordinates').value=position.coords.longitude+","+position.coords.latitude;
+  document.getElementById('submitbtn').disabled=false;
+}
+coordinate();
+
+            </script>
         
           <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
          

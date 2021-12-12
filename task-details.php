@@ -1,7 +1,7 @@
 <?php
 
 require 'includes/auth.php'; // admin authentication check 
-
+$coordinate="";
 // auth check
 $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
@@ -137,6 +137,15 @@ include("includes/sidebar.php");
 
   <!-- Modal Content (The Image) -->
   <img class="modal-content" id="img01">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
+    
 
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>
@@ -208,7 +217,7 @@ include("includes/sidebar.php");
                                   <td>
                                   
                                   <img id="myImg" src="uploads/<?php  echo $record['picture'] ?>" alt="picture here" width="100" style="display:block;">
-                             
+                             <?php  $coordinate=$record['coordinate'] ?>
                                   </td>
                                   </tr>
                                 
@@ -219,6 +228,23 @@ include("includes/sidebar.php");
 				                    </tbody>
 				                  </table>
 				                </div>
+                        <div class="row m-3">
+                          <div class="col-4">
+                            <h3>Location </h3>
+                          </div>
+                          <div class="col-8">
+                          <div id="map" class="map"></div>
+                            <?php 
+                              echo $coordinate;
+                            ?>
+                          </div>
+                          
+                        </div>
+                        <?php  
+                       
+
+
+?>
                         <?php if($_SESSION['user_role']==1){?>
                         <a title="Update Task"  href="edit-task.php?task_id=<?php echo $_GET['task_id'];?>" class="btn btn-success-custom btn-lg mt-3 float-right ml-3 bg-info">
                                    Update Task </a>
@@ -238,6 +264,35 @@ include("includes/sidebar.php");
 
           </div>
         </div>
+        <script type="text/javascript">
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([<?php echo $coordinate; ?>]),
+          zoom: 18
+        })
+      });
+
+ 
+
+      var marker = new ol.Feature({
+  geometry: new ol.geom.Point(
+    ol.proj.fromLonLat([<?php echo $coordinate; ?>])
+  ),  // Cordinates of New York's Town Hall
+});
+var vectorSource = new ol.source.Vector({
+  features: [marker]
+});
+var markerVectorLayer = new ol.layer.Vector({
+  source: vectorSource,
+});
+map.addLayer(markerVectorLayer);
+      </script>
         
         <script>
           // Get the modal
