@@ -149,10 +149,7 @@ include("includes/sidebar.php");
         <div class="page-content-wrapper-inner">
           <div class="content-viewport">
             <div class="row">
-              <div class="col-12 py-5">
-                <h4>Dashboard</h4>
-                <p class="text-gray">Welcome aboard, Name</p>
-              </div>
+              
             </div>
              
 
@@ -171,6 +168,9 @@ include("includes/sidebar.php");
 				                      <tr>
 				                        <td>End Time</td><td><?php echo $row['t_end_time']; ?></td>
 				                      </tr>
+                              <tr>
+				                        <td>Address to work</td><td><?php echo $row['address']; ?></td>
+				                      </tr>
 				                      <tr>
 				                        <td>Assign To</td><td><?php echo $row['fullname']; ?></td>
 				                      </tr>
@@ -179,8 +179,10 @@ include("includes/sidebar.php");
 											                        echo "In Progress";
 											                    }elseif($row['status'] == 2){
 											                       echo "Completed";
-											                    }else{
+											                    }else if($row['status'] == 0){
 											                      echo "Incomplete";
+											                    }else if($row['status'] == 3){
+											                      echo "close";
 											                    } ?></td>
 				                      </tr>
                                   <?php
@@ -193,7 +195,7 @@ include("includes/sidebar.php");
                                      ?>
                                       
                                <tr>
-                                    <td>Any Description</td>
+                                    <td>Commnet by worker</td>
                                   <td>
                                   
                                   <?php  

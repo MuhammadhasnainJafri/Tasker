@@ -350,6 +350,7 @@ class Admin_Class
 			$t_start_time = $this->test_form_input_data($data['t_start_time']);
 			$t_end_time = $this->test_form_input_data($data['t_end_time']);
 			$status = $this->test_form_input_data($data['status']);
+			$address = $this->test_form_input_data($data['address']);
 			$record_id = $this->test_form_input_data($data['record_id']);
 			
 			$task_complete_description = $this->test_form_input_data($data['task_complete_description']);
@@ -369,7 +370,7 @@ class Admin_Class
 
 			try{
 				if($user_role == 1){
-				$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c WHERE task_id = :id ");
+				$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x,`address` = :d, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c WHERE task_id = :id ");
 				$update_task->bindparam(':x', $task_title);
 				$update_task->bindparam(':y', $task_description);
 				$update_task->bindparam(':z', $t_start_time);
@@ -377,6 +378,7 @@ class Admin_Class
 				$update_task->bindparam(':b', $assign_to);
 				$update_task->bindparam(':c', $status);
 				$update_task->bindparam(':id', $task_id);
+				$update_task->bindparam(':d', $address);
 			}else{
 				
 				$file_name = $_FILES['image']['name'];

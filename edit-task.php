@@ -111,6 +111,15 @@ include("includes/sidebar.php");
                           </div>
                           <div class="form-group row showcase_row_area">
                             <div class="col-md-3 showcase_text_area">
+                              <label for="inputType1">Address to work</label>
+                            </div>
+                            <div class="col-md-9 showcase_content_area">
+                              <input type="text" name="address" class="form-control" value="<?php echo $row['address']; ?>" required >
+                            </div>
+                          </div>
+                        
+                          <div class="form-group row showcase_row_area">
+                            <div class="col-md-3 showcase_text_area">
                               <label for="inputType1">Assign To</label>
                             </div>
                             <div class="col-md-9 showcase_content_area">
@@ -134,11 +143,14 @@ include("includes/sidebar.php");
                               <label for="inputType1">Status</label>
                             </div>
                             <div class="col-md-9 showcase_content_area">
-                            <select class="form-control" name="status" id="status">
+                            <select class="form-control" name="status" id="status" >
 			                      	<option value="0" <?php if($row['status'] == 0){ ?>selected <?php } ?>>Incomplete</option>
 			                      	<option value="1" <?php if($row['status'] == 1){ ?>selected <?php } ?>>In Progress</option>
 			                      	<option value="2" <?php if($row['status'] == 2){ ?>selected <?php } ?>>Completed</option>
-			                      </select>
+                              <?php  if($user_role==1){ ?>
+                              <option value="3" <?php if($row['status'] == 3){ ?>selected <?php } ?>>close</option>
+                                <?php } ?>
+                            </select>
                           </div>
                           </div>
                           <div class="form-group row showcase_row_area">

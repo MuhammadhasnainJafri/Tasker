@@ -79,16 +79,7 @@ include("includes/sidebar.php");
                       <div class="row mb-3">
                         <div class="col-md-8 mx-auto">
                         <form class="form-horizontal" role="form" action="" method="post" autocomplete="off" enctype="multipart/form-data">
-                      
-                          <?php 
-                          $user_id=$row['t_user_id'];
-                            $sql="SELECT * from record where user_id=$user_id and  task_id=$task_id";
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                              // output data of each row
-                              while($record = $result->fetch_assoc()) {
-                               ?>
-                                 <div class="form-group row showcase_row_area">
+                        <div class="form-group row showcase_row_area">
                             <div class="col-md-3 showcase_text_area">
                               <label for="inputType1">Status</label>
                             </div>
@@ -100,8 +91,17 @@ include("includes/sidebar.php");
 			                      	<option value="2" <?php if($row['status'] == 2){ ?>selected <?php } ?>>Completed</option>
 			                      </select>
                           </div>
-                          <input type="number" name="record_id" value="<?php echo $record['id'];  ?>" hidden>
-                          </div>
+                           </div>
+                          <?php 
+                          $user_id=$row['t_user_id'];
+                            $sql="SELECT * from record where user_id=$user_id and  task_id=$task_id";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                              // output data of each row
+                              while($record = $result->fetch_assoc()) {
+                               ?>
+                                 <input type="number" name="record_id" value="<?php echo $record['id'];  ?>" hidden>
+                         
                                <div class="form-group row showcase_row_area" >
                             <div class="col-md-3 showcase_text_area">
                               <label for="inputType1">Any Description</label>

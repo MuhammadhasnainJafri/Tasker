@@ -90,6 +90,12 @@ $page_name="Task_Info";
                   </div>
                 </div>
                 <div class="form-group">
+                  <label class="control-label col-sm-5">Address to work</label>
+                  <div class="col-12">
+                    <input type="text" name="address" id="t_end_time" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
                   <label class="control-label col-sm-5">Assign To</label>
                   <div class="col-12">
                     <?php 
@@ -266,8 +272,12 @@ include("includes/sidebar.php");
                   echo "style='background:#ffc107 !important' ";
                 }else if($row['status'] == 2){
                   echo "style='background:#28a745 !important'";
-                }else {
-                  echo "style='background:#dc3545 !important'";
+                }else if($row['status']==0){
+                  echo "style='background:#dc3545 !important;'";
+                }else if($row['status'] == 3){
+                  echo "style='color: #004085;
+                  background-color: darkturquoise;
+                  border-color: darkturquoise;'";
                 }
                 
                 
@@ -284,8 +294,10 @@ include("includes/sidebar.php");
                         echo "In Progress";
                     }elseif($row['status'] == 2){
                        echo "Completed ";
-                    }else{
+                    }else if($row['status'] == 0){
                       echo "Incomplete";
+                    }else if($row['status'] == 3){
+                      echo "Close";
                     } ?>
                     
                   </td>
@@ -328,7 +340,7 @@ include("includes/sidebar.php");
     var date=dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
     date=date.trim();
     $.ajax({url: "update-status.php?date="+date, success: function(result){
-   $('#tbody').html(result);
+   
    
   }});
   }
