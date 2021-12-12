@@ -10,7 +10,7 @@
       }
     </style>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
-    <title>OpenLayers example</title>
+    
   </head>
   <body>
     <h2>My Map</h2>
@@ -24,7 +24,7 @@
           })
         ],
         view: new ol.View({
-          center: ol.proj.fromLonLat([73.085826, 33.647882]),
+          center: ol.proj.fromLonLat([73.0859492, 33.6478123]),
           zoom: 18
         })
       });
@@ -33,7 +33,7 @@
 
       var marker = new ol.Feature({
   geometry: new ol.geom.Point(
-    ol.proj.fromLonLat([73.085826, 33.647882])
+    ol.proj.fromLonLat([73.0859492, 33.6478123])
   ),  // Cordinates of New York's Town Hall
 });
 var vectorSource = new ol.source.Vector({
