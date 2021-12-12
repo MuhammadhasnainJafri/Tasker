@@ -85,6 +85,12 @@ if(isset($_POST['add_new_employee'])){
                       <input type="email" placeholder="Enter Employee Email" name="em_email" class="form-control input-custom" required>
                     </div>
                   </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-4">password</label>
+                    <div class="col-12">
+                      <input type="password" placeholder="Enter Password here" name="password" class="form-control input-custom" required>
+                    </div>
+                  </div>
                   
                  
                   

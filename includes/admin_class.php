@@ -136,8 +136,7 @@ class Admin_Class
 		$user_fullname  = $this->test_form_input_data($data['em_fullname']);
 		$user_username = $this->test_form_input_data($data['em_username']);
 		$user_email = $this->test_form_input_data($data['em_email']);
-		$temp_password = rand(000000001,10000000);
-		$user_password = $this->test_form_input_data(md5($temp_password));
+		$password = $this->test_form_input_data(md5($data['password']));
 		$user_role = 2;
 		try{
 			$sqlEmail = "SELECT email FROM tbl_admin WHERE email = '$user_email' ";
@@ -164,13 +163,12 @@ class Admin_Class
             	return $message;
 
 			}else{
-				$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, username, email, password, temp_password, user_role) VALUES (:x, :y, :z, :a, :b, :c) ");
+				$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, username, email, password, user_role) VALUES (:x, :y, :z, :a, :c) ");
 
 				$add_user->bindparam(':x', $user_fullname);
 				$add_user->bindparam(':y', $user_username);
 				$add_user->bindparam(':z', $user_email);
-				$add_user->bindparam(':a', $user_password);
-				$add_user->bindparam(':b', $temp_password);
+				$add_user->bindparam(':a', $password);
 				$add_user->bindparam(':c', $user_role);
 
 				$add_user->execute();
