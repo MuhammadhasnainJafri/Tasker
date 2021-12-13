@@ -137,27 +137,35 @@ include("includes/sidebar.php");
 
   <!-- Modal Content (The Image) -->
   <img class="modal-content" id="img01">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css" type="text/css">
-    <style>
+  
+  <!-- map start at here  -->
+   <style>
       .map {
         height: 400px;
         width: 100%;
       }
     </style>
-    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
-    
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+integrity=
+"sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	crossorigin="" />
+    <!-- map ends at here  -->
 
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>
 </div>
 
 
-
+ 
       <!-- partial -->
       <div class="page-content-wrapper">
         <div class="page-content-wrapper-inner">
           <div class="content-viewport">
             <div class="row">
+            <div class="col-12 py-5">
+                <h4>User Managment System</h4>
+               
+              </div>
               
             </div>
              
@@ -228,18 +236,19 @@ include("includes/sidebar.php");
 				                    </tbody>
 				                  </table>
 				                </div>
+                        <?php if($coordinate!=null || $coordinate!=''){?>
                         <div class="row m-3">
                           <div class="col-4">
                             <h3>Location </h3>
                           </div>
                           <div class="col-8">
+                            
                           <div id="map" class="map"></div>
-                            <?php 
-                              echo $coordinate;
-                            ?>
+                           
                           </div>
-                          
+                         
                         </div>
+                        <?php }?>
                         <?php  
                        
 
@@ -264,35 +273,39 @@ include("includes/sidebar.php");
 
           </div>
         </div>
-        <script type="text/javascript">
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
-        ],
-        view: new ol.View({
-          center: ol.proj.fromLonLat([<?php echo $coordinate; ?>]),
-          zoom: 18
-        })
-      });
+       
+<!-- Get the leaflet JavaScript file -->
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+	integrity=
+"sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+	crossorigin=""></script>
+    <script>
+    // Initialize the leaflet map
+const map = L.map('map');
 
- 
+// Get the tile layer from OpenStreetMaps
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
-      var marker = new ol.Feature({
-  geometry: new ol.geom.Point(
-    ol.proj.fromLonLat([<?php echo $coordinate; ?>])
-  ),  // Cordinates of New York's Town Hall
-});
-var vectorSource = new ol.source.Vector({
-  features: [marker]
-});
-var markerVectorLayer = new ol.layer.Vector({
-  source: vectorSource,
-});
-map.addLayer(markerVectorLayer);
-      </script>
+// Specify the maximum zoom of the map
+maxZoom: 19,
+
+// Set the attribution for OpenStreetMaps
+attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Set the view of the map
+// with the latitude, longitude and the zoom value
+map.setView([<?php echo $coordinate; ?>], 16);
+
+// Ask for current location and navigate to that area
+//console.log(map.locate({setView: true, maxZoom: 16}));
+// Show a market at the position of the Eiffel Tower
+let eiffelMarker = L.marker([<?php echo $coordinate; ?>]).addTo(map);
+
+// Bind popup to the marker with a popup
+eiffelMarker.bindPopup("Employee Location").openPopup();
+
+    </script>
         
         <script>
           // Get the modal

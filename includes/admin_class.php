@@ -321,20 +321,21 @@ class Admin_Class
 		$t_start_time = $this->test_form_input_data($data['t_start_time']);
 		$t_end_time = $this->test_form_input_data($data['t_end_time']);
 		$assign_to = $this->test_form_input_data($data['assign_to']);
+		$address = $this->test_form_input_data($data['address']);
 		
 		try{
-			$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, 	t_end_time, t_user_id) VALUES (:x, :y, :z, :a, :b) ");
+			$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, 	t_end_time, t_user_id, `address`) VALUES (:x, :y, :z, :a, :b,:d) ");
 
 			$add_task->bindparam(':x', $task_title);
 			$add_task->bindparam(':y', $task_description);
 			$add_task->bindparam(':z', $t_start_time);
 			$add_task->bindparam(':a', $t_end_time);
 			$add_task->bindparam(':b', $assign_to);
+			$add_task->bindparam(':d', $address);
 
 			$add_task->execute();
 
 			$_SESSION['Task_msg'] = 'Task Add Successfully';
-
 			header('Location: task.php');
 		}catch (PDOException $e) {
 			echo $e->getMessage();
@@ -430,7 +431,7 @@ class Admin_Class
 		}
 		//update status
 	function updateStatus($date){
-		$query="UPDATE `task_info` SET `status`='3' WHERE `t_end_time`<'$date' AND `status`=0 ";
+		$query="UPDATE `task_info` SET `status`='0' WHERE `t_end_time`<'$date' AND `status`!=2 ";
 		$updateStatus = $this->db->prepare($query);
 		$updateStatus->execute();
 

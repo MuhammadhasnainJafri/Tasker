@@ -147,9 +147,7 @@ include("includes/sidebar.php");
 			                      	<option value="0" <?php if($row['status'] == 0){ ?>selected <?php } ?>>Incomplete</option>
 			                      	<option value="1" <?php if($row['status'] == 1){ ?>selected <?php } ?>>In Progress</option>
 			                      	<option value="2" <?php if($row['status'] == 2){ ?>selected <?php } ?>>Completed</option>
-                              <?php  if($user_role==1){ ?>
-                              <option value="3" <?php if($row['status'] == 3){ ?>selected <?php } ?>>close</option>
-                                <?php } ?>
+                              
                             </select>
                           </div>
                           </div>

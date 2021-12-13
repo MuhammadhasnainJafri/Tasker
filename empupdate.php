@@ -269,7 +269,7 @@ include("includes/sidebar.php");
   }
 }
 function showPosition(position) {
-  document.getElementById('coordinates').value=position.coords.longitude+","+position.coords.latitude;
+  document.getElementById('coordinates').value=position.coords.latitude+","+position.coords.longitude;
   document.getElementById('submitbtn').disabled=false;
 }
 coordinate();

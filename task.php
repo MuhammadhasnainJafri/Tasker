@@ -92,7 +92,7 @@ $page_name="Task_Info";
                 <div class="form-group">
                   <label class="control-label col-sm-5">Address to work</label>
                   <div class="col-12">
-                    <input type="text" name="address" id="t_end_time" class="form-control">
+                    <input type="text" name="address"  class="form-control">
                   </div>
                 </div>
                 <div class="form-group">
@@ -255,7 +255,7 @@ include("includes/sidebar.php");
                   $sql = "SELECT a.*, b.fullname 
                   FROM task_info a
                   INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                  WHERE a.t_user_id = $user_id
+                  WHERE a.t_user_id = $user_id and a.status != 2 
                   ORDER BY a.t_end_time DESC";
                 } 
                 
@@ -335,15 +335,7 @@ include("includes/sidebar.php");
           </div>
 
 <script>
-  function updatestatus(){
-    var dt = new Date();
-    var date=dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
-    date=date.trim();
-    $.ajax({url: "update-status.php?date="+date, success: function(result){
-   
-   
-  }});
-  }
+  
   function statusresult(d){
     
     $.ajax({url: "get_by_status.php?status="+d, success: function(result){
@@ -391,7 +383,20 @@ include("includes/sidebar.php");
         include('includes/footer.php');
         ?>
   </body>
+  <?php
+  if($user_role==1){
+  ?>
   <script>
+    function updatestatus(){
+    var dt = new Date();
+    var date=dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+    date=date.trim();
+    $.ajax({url: "update-status.php?date="+date, success: function(result){
+   
+   
+  }});
+  }
     updatestatus();
     </script>
+  <?php  }?>
 </html>
