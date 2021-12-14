@@ -11,6 +11,7 @@
     <!-- endinject -->
     <!-- Layout style -->
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
+    
     <!-- Layout style -->
     <!-- <link rel="shortcut icon" href="assets/images/favicon.ico" /> -->
   </head>

@@ -102,7 +102,7 @@ $page_name="Task_Info";
                       $sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_role = 2";
                       $info = $obj_admin->manage_all_info($sql);   
                     ?>
-                    <select class="form-control" name="assign_to" id="aassign_to" required>
+                    <select class="form-control" name="assign_to" id="aassign_to" onfocus='this.size=7;' onblur='this.size=1;' onchange='this.size=1; this.blur();' required>
                       <option value="">Select Employee...</option>
 
                       <?php while($row = $info->fetch(PDO::FETCH_ASSOC)){ ?>
@@ -162,28 +162,17 @@ $page_name="Task_Info";
 
 <h5 class="h5 hr" style=" border-bottom: 3px solid darken('#165578', 10);">Search task of between date</h5>
   <hr>
-  <div class="row">
-  <div class="input-group col-6">
-    <div class="input-group-prepend">
-      <div class="input-group-text" id="btnGroupAddon">
-      <span class='mdi mdi-calendar  d-inline' ></span>
-      </div>
-    </div>
-    <input type="text" id="d2"  class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
-  <span class="d-inline m-3">-</span>
-  <div class="input-group-prepend">
-      <div class="input-group-text" id="btnGroupAddon">
-      <span class='mdi mdi-calendar  d-inline' ></span>
-      </div>
-    </div>
-    <input type="text" id="d3" class="form-control date" style="height:100%" value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
+  <div class="input-group">
   
+    <input type="text" id="d2"  class="form-control date"  value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
+ 
+   -
+    <input type="text" id="d3" class="form-control date"  value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
   
-  </div>
   <button class="btn btn-info" id="date_task" onclick="gettaskbetween(document.getElementById('d2'),document.getElementById('d3'))" >></button>
    
   </div>
-  <div class="row mt-3">
+  <div class="btn-group mt-4">
   <button class="btn btn-primary ml-3" onclick="statusresult(2)">Completed task</button>
   <button class="btn btn-danger ml-3" onclick="statusresult(0)">Incomplete task</button>
   <button class="btn btn-warning ml-3" onclick="statusresult(1)">Progress task</button>
@@ -367,13 +356,24 @@ include("includes/sidebar.php");
 
 <script type="text/javascript">
   flatpickr('#t_start_time', {
-    enableTime: false
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: "13:45",
+    allowInput: true,
+    
   });
   flatpickr('.date', {
-    enableTime: false
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: "13:45",
+    allowInput: true,
   });
   flatpickr('#t_end_time', {
-    enableTime: false
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: "13:45",
+    allowInput: true,
+   
   });
 
 </script>
@@ -383,9 +383,7 @@ include("includes/sidebar.php");
         include('includes/footer.php');
         ?>
   </body>
-  <?php
-  if($user_role==1){
-  ?>
+  
   <script>
     function updatestatus(){
     var dt = new Date();
@@ -398,5 +396,5 @@ include("includes/sidebar.php");
   }
     updatestatus();
     </script>
-  <?php  }?>
+
 </html>

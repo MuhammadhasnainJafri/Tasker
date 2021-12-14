@@ -127,7 +127,7 @@ include("includes/sidebar.php");
 			                        $sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_role = 2";
 			                        $info = $obj_admin->manage_all_info($sql);   
 			                      ?>
-			                      <select class="form-control" name="assign_to" id="aassign_to" <?php if($user_role != 1){ ?> disabled="true" <?php } ?>>
+			                      <select onfocus='this.size=7;' onblur='this.size=1;' onchange='this.size=1; this.blur();' class="form-control" name="assign_to" id="aassign_to" <?php if($user_role != 1){ ?> disabled="true" <?php } ?>>
 			                        <option value="">Select</option>
 
 			                        <?php while($rows = $info->fetch(PDO::FETCH_ASSOC)){ ?>
@@ -180,15 +180,32 @@ include("includes/sidebar.php");
 
 <script type="text/javascript">
   flatpickr('#t_start_time', {
-    enableTime: false
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: "13:45",
+    allowInput: true,
   });
 
   flatpickr('#t_end_time', {
-    enableTime: false
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: "13:45",
+    allowInput: true,
   });
 
 </script>
-        
+<script>
+    function updatestatus(){
+    var dt = new Date();
+    var date=dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+    date=date.trim();
+    $.ajax({url: "update-status.php?date="+date, success: function(result){
+   
+   
+  }});
+  }
+    updatestatus();
+    </script>
       <!-- content viewport ends -->
         <?php  
 

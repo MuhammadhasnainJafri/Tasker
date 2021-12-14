@@ -484,7 +484,9 @@ footer {
         background: transparent;
         padding-left: 0; }
       .page-body .page-content-wrapper footer {
-        position: relative; }
+        position: fixed;
+        display: contents;
+      }
     .page-body.sidebar-collpased .sidebar {
       margin-left: 0;
       min-width: 15rem; } }

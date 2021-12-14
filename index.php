@@ -28,6 +28,18 @@ $page_name="Login";
 include 'includes/head.php';
 
 ?>
+<script>
+    function updatestatus(){
+    var dt = new Date();
+    var date=dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+    date=date.trim();
+    $.ajax({url: "update-status.php?date="+date, success: function(result){
+   
+   
+  }});
+  }
+    updatestatus();
+    </script>
   <body>
     <div class="authentication-theme auth-style_1">
       <div class="row">

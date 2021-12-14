@@ -144,6 +144,9 @@ include("includes/sidebar.php");
         height: 400px;
         width: 100%;
       }
+      .leaflet-left{
+        z-index: 900 !important;
+      }
     </style>
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 integrity=
@@ -273,6 +276,18 @@ integrity=
 
           </div>
         </div>
+        <script>
+    function updatestatus(){
+    var dt = new Date();
+    var date=dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+    date=date.trim();
+    $.ajax({url: "update-status.php?date="+date, success: function(result){
+   
+   
+  }});
+  }
+    updatestatus();
+    </script>
        
 <!-- Get the leaflet JavaScript file -->
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
