@@ -274,7 +274,7 @@ include("includes/sidebar.php");
                 
                 >
                  
-                  <td><?php echo $row['t_title']; ?></td>
+                  <td><?php echo substr($row['t_title'],0,30); ?></td>
                   <td><?php echo $row['fullname']; ?></td>
                   <td><?php echo $row['t_start_time']; ?></td>
                   <td><?php echo $row['t_end_time']; ?></td>
@@ -363,9 +363,8 @@ include("includes/sidebar.php");
     
   });
   flatpickr('.date', {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: "13:45",
+    enableTime: false,
+    
     allowInput: true,
   });
   flatpickr('#t_end_time', {

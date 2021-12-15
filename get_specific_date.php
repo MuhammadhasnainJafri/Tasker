@@ -24,18 +24,21 @@ $user_role = $_SESSION['user_role'];
 
 if(isset($_GET['date'])){
     $date= $_GET['date'];
+    $date=$date."%";
+    // echo $date;
 
 
                 if($user_role == 1){
                   $sql = "SELECT a.*, b.fullname 
                         FROM task_info a
-                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id) where `t_start_time`='$date'
+                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id) where `t_start_time` LIKE '$date'
                         ORDER BY a.t_end_time DESC";
+                  
                 }else{
                   $sql = "SELECT a.*, b.fullname 
                   FROM task_info a
                   INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                  WHERE a.t_user_id = $user_id and  `t_start_time`='$date'
+                  WHERE a.t_user_id = $user_id and  `t_start_time` LIKE '$date'
                   ORDER BY a.t_end_time DESC";
                 } 
                 
@@ -138,7 +141,7 @@ if(isset($_GET['date'])){
                 
                 >
                  
-                  <td><?php echo $row['t_title']; ?></td>
+                  <td><?php echo substr($row['t_title'],0,30); ?></td>
                   <td><?php echo $row['fullname']; ?></td>
                   <td><?php echo $row['t_start_time']; ?></td>
                   <td><?php echo $row['t_end_time']; ?></td>
