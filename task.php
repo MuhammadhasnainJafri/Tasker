@@ -159,19 +159,19 @@ $page_name="Task_Info";
   <button class="btn btn-info" onclick="gettask(document.getElementById('d1'))">></button>
    
   </div>
-
+<!--
 <h5 class="h5 hr" style=" border-bottom: 3px solid darken('#165578', 10);">Search task of between date</h5>
   <hr>
-  <div class="input-group">
+   <div class="input-group">
   
-    <input type="text" id="d2"  class="form-control date"  value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
+    <input type="text" id="d2"  class="form-control datetime"  value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
  
    -
-    <input type="text" id="d3" class="form-control date"  value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
+    <input type="text" id="d3" class="form-control datetime"  value="2021-12-11" aria-label="Input group example" aria-describedby="btnGroupAddon">
   
   <button class="btn btn-info" id="date_task" onclick="gettaskbetween(document.getElementById('d2'),document.getElementById('d3'))" >></button>
    
-  </div>
+  </div> -->
   <div class="btn-group mt-4">
   <button class="btn btn-primary ml-3" onclick="statusresult(2)">Completed task</button>
   <button class="btn btn-danger ml-3" onclick="statusresult(0)">Incomplete task</button>
@@ -339,13 +339,13 @@ include("includes/sidebar.php");
    $('#close').click();
   }});
   }
-  function gettaskbetween(date1,date2){
-    // get_specific_date.php
-    $.ajax({url: "get_specific_date.php?date1="+date1.value+"&date2="+date2.value, success: function(result){
-   $('#tbody').html(result);
-   $('#close').click();
-  }});
-  }
+  // function gettaskbetween(date1,date2){
+  //   // get_specific_date.php
+  //   $.ajax({url: "get_specific_date.php?date1="+date1.value+"&date2="+date2.value, success: function(result){
+  //  $('#tbody').html(result);
+  //  $('#close').click();
+  // }});
+  // }
 
   
 
@@ -365,6 +365,12 @@ include("includes/sidebar.php");
   flatpickr('.date', {
     enableTime: false,
     
+    allowInput: true,
+  });
+  flatpickr('.datetime', {
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: "13:45",
     allowInput: true,
   });
   flatpickr('#t_end_time', {

@@ -64,7 +64,7 @@ if(isset($_GET['date'])){
                 
                 >
                  
-                  <td><?php echo $row['t_title']; ?></td>
+                  <td><?php echo  substr($row['t_title'],0,30); ?></td>
                   <td><?php echo $row['fullname']; ?></td>
                   <td><?php echo $row['t_start_time']; ?></td>
                   <td><?php echo $row['t_end_time']; ?></td>
