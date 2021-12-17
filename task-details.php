@@ -29,10 +29,10 @@ LEFT JOIN tbl_admin b ON(a.t_user_id = b.user_id)
 WHERE task_id='$task_id'";
 $info = $obj_admin->manage_all_info($sql);
 $row = $info->fetch(PDO::FETCH_ASSOC);
-$host_name='localhost';
-$user_name='root';
-$password='';
-$db_name='etmsh';
+$host_name='sql5c75f.carrierzone.com';
+		$user_name='maxtelcomm530491';
+		$password='Maliraza0897';
+		$db_name='TaskCMS_maxtelcomm530491';
 $conn = new mysqli($host_name, $user_name, $password, $db_name);
 // Check connection
 if ($conn->connect_error) {

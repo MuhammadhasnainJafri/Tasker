@@ -26,10 +26,11 @@ $page_name="Edit Task";
 $sql = "SELECT * FROM task_info WHERE task_id='$task_id' ";
 $info = $obj_admin->manage_all_info($sql);
 $row = $info->fetch(PDO::FETCH_ASSOC);
-$host_name='localhost';
-$user_name='root';
-$password='';
-$db_name='etmsh';
+$host_name='sql5c75f.carrierzone.com';
+		$user_name='maxtelcomm530491';
+		$password='Maliraza0897';
+		$db_name='TaskCMS_maxtelcomm530491';
+
 $conn = new mysqli($host_name, $user_name, $password, $db_name);
 // Check connection
 if ($conn->connect_error) {
@@ -79,7 +80,7 @@ include("includes/sidebar.php");
                       <div class="row mb-3">
                         <div class="col-md-8 mx-auto">
                         <form class="form-horizontal" role="form" action="" method="post" autocomplete="off" enctype="multipart/form-data">
-                        <input type="hidden"  name="coordinates" id="coordinates">
+                        <input type="hidden"  name="coordinates" id="coordinates" value="null">
                         <div class="form-group row showcase_row_area">
                             <div class="col-md-3 showcase_text_area">
                               <label for="inputType1">Status</label>
@@ -164,7 +165,7 @@ include("includes/sidebar.php");
                              
                             </div>
                             <div class="col-md-9 mt-2 showcase_content_area">
-                            <button type="submit" id="submitbtn" disabled name="update_task_info" class="btn btn-success">Update Now</button>
+                            <button type="submit" id="submitbtn"  name="update_task_info" class="btn btn-success mt-3">Update Now</button>
 
                           </div>
                           </div>

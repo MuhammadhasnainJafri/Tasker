@@ -1,0 +1,56 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+  .wrapper {
+    margin-top:50px;width:100%;text-align:center;
+  }
+  #bigbutton {
+    border:1px solid #000;font-size:25px;padding:10px 20px;
+  }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <button id="bigbutton">Where Am I?</button>
+  <p id="demo"></p>
+</div>
+<script>
+jQuery(document).ready(function($) {
+  $("#bigbutton").click(function() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(geoSucc, geoErr, geoOpt);
+    } else {
+      $("#demo").html('Geolocation is not supported by this browser.');
+    }
+  });
+  function geoSucc(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    $("#demo").html(latitude + ',' + longitude);
+  }
+  function geoErr(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        $("#demo").html('User denied the request for Geolocation.');
+        break;
+      case error.POSITION_UNAVAILABLE:
+        $("#demo").html('Location information is unavailable.');
+        break;
+      case error.TIMEOUT:
+        $("#demo").html('The request to get user location timed out.');
+        break;
+      case error.UNKNOWN_ERROR:
+        $("#demo").html('An unknown error occurred.');
+        break;
+    }
+  }
+  var geoOpt = {
+    timeout: 3000,
+    maximumAge: 30
+  }
+});
+</script>
+</body>

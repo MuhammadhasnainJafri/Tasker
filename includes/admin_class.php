@@ -7,10 +7,10 @@ class Admin_Class
 
 	public function __construct()
 	{ 
-        $host_name='localhost';
-		$user_name='root';
-		$password='';
-		$db_name='etmsh';
+        $host_name='sql5c75f.carrierzone.com';
+		$user_name='maxtelcomm530491';
+		$password='Maliraza0897';
+		$db_name='TaskCMS_maxtelcomm530491';
 
 		try{
 			$connection=new PDO("mysql:host={$host_name}; dbname={$db_name}", $user_name,  $password);
