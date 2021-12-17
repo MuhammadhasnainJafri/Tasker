@@ -516,6 +516,15 @@ class Admin_Class
 			echo $e->getMessage();
 		}
 	}
+	public function retunEmpCount($sql) {
+		try{
+			$info = $this->db->prepare($sql);
+			$info->execute();
+			return $info;
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
 
 
 	public function countDash(){

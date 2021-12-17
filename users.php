@@ -88,7 +88,7 @@ if(isset($_POST['add_new_employee'])){
                   <div class="form-group">
                     <label class="control-label col-sm-4">password</label>
                     <div class="col-12">
-                      <input type="password" placeholder="Enter Password here" name="password" class="form-control input-custom" required>
+                      <input type="text" placeholder="Enter Password here" name="password" class="form-control input-custom" required>
                     </div>
                   </div>
                   
@@ -176,7 +176,6 @@ include("includes/sidebar.php");
                   <th class="font-weight-bold">Fullname</th>
                   <th class="font-weight-bold">Email</th>
                   <th class="font-weight-bold">Username</th>
-                  <th class="font-weight-bold">Temp Password</th>
                   <th class="font-weight-bold">Details</th>
                           </tr>
                         </thead>
@@ -196,7 +195,6 @@ include("includes/sidebar.php");
                   <td><?php echo $row['fullname']; ?></td>
                   <td><?php echo $row['email']; ?></td>
                   <td><?php echo $row['username']; ?></td>
-                  <td><?php echo $row['temp_password']; ?></td>
                   
                   <td><a title="Update Employee" href="update-employee.php?admin_id=<?php echo $row['user_id']; ?>">
                   <span class="mdi mdi-lead-pencil d-inline text-dark h5"></span></a>&nbsp;&nbsp;<a title="Delete" href="?delete_user=delete_user&admin_id=<?php echo $row['user_id']; ?>" onclick=" return check_delete();"> <span class="mdi mdi-delete d-inline text-dark h5"></span></a></td>

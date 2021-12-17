@@ -128,7 +128,7 @@ include("includes/sidebar.php");
                             <label for="admin_password">New Password:</label>
                             </div>
                             <div class="col-md-9 showcase_content_area">
-                            <input type="password" name="employee_password" class="form-control input-custom" id="employee_password"  min="8" required>
+                            <input type="text" name="employee_password" class="form-control input-custom" id="employee_password"  min="8" required>
                             
                             
                               <button type="submit" name="btn_user_password" class="btn btn-danger mt-3">Ok</button>

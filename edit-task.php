@@ -88,9 +88,7 @@ include("includes/sidebar.php");
                               <label for="inputType1">Task Description</label>
                             </div>
                             <div class="col-md-9 showcase_content_area">
-                            <textarea class="form-control" name="task_description" id="inputType9" cols="12" rows="5">
-                            <?php echo $row['t_description']; ?>
-                            </textarea>
+                            <textarea class="form-control" name="task_description" id="inputType9" cols="12" rows="5"><?php echo $row['t_description']; ?></textarea>
                             </div>
                           </div>
                           <div class="form-group row showcase_row_area">

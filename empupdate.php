@@ -26,7 +26,8 @@ $page_name="Edit Task";
 $sql = "SELECT * FROM task_info WHERE task_id='$task_id' ";
 $info = $obj_admin->manage_all_info($sql);
 $row = $info->fetch(PDO::FETCH_ASSOC);
-$host_name='sql5c75f.carrierzone.com';
+$host_name='localhost';
+// $host_name='sql5c75f.carrierzone.com';
 		$user_name='maxtelcomm530491';
 		$password='Maliraza0897';
 		$db_name='TaskCMS_maxtelcomm530491';
@@ -109,11 +110,7 @@ include("includes/sidebar.php");
                               <label for="inputType1">Any Description</label>
                             </div>
                             <div class="col-md-9 showcase_content_area">
-                            <textarea class="form-control" name="task_complete_description" >
-                            <?php  
-                              echo $record['description'];
-                            ?>
-                            </textarea>
+                            <textarea class="form-control" name="task_complete_description" ><?php  echo $record['description'];?></textarea>
                             
                           </div>
                           </div>

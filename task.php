@@ -159,6 +159,32 @@ $page_name="Task_Info";
   <button class="btn btn-info" onclick="gettask(document.getElementById('d1'))">></button>
    
   </div>
+  <h5 class="h5 mt-3">Search task by Employee</h5>
+  <hr>
+  <div class="row">
+  <div class="input-group col-6">
+    <div class="input-group-prepend">
+      <div class="input-group-text" id="btnGroupAddon">
+      <span class='mdi mdi-account  d-inline' ></span>
+      </div>
+    </div>
+    <?php
+     $sql = "SELECT `fullname`,`user_id` FROM `tbl_admin` WHERE `user_role`!=1
+     ORDER BY `user_id` DESC";
+     $emp = $obj_admin->retunEmpCount($sql); 
+    ?>
+     <select id="selectEmp" class="form-control" name="assign_to" id="aassign_to" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' required>
+                      <option value="">Select Employee...</option>
+
+                      <?php while($row = $emp->fetch(PDO::FETCH_ASSOC)){ ?>
+                      <option value="<?php echo $row['user_id']; ?>"><?php echo $row['fullname']; ?></option>
+                      <?php } ?>
+                    </select>
+
+    </div>
+  <button class="btn btn-info" onclick="getByEmp(document.getElementById('selectEmp'))">></button>
+   
+  </div>
 <!--
 <h5 class="h5 hr" style=" border-bottom: 3px solid darken('#165578', 10);">Search task of between date</h5>
   <hr>
@@ -339,6 +365,14 @@ include("includes/sidebar.php");
    $('#close').click();
   }});
   }
+  function getByEmp(Emp){
+    // get_specific_date.php
+    $.ajax({url: "getByEmp.php?user_id="+Emp.value, success: function(result){
+   $('#tbody').html(result);
+   $('#close').click();
+  }});
+  }
+  
   // function gettaskbetween(date1,date2){
   //   // get_specific_date.php
   //   $.ajax({url: "get_specific_date.php?date1="+date1.value+"&date2="+date2.value, success: function(result){
