@@ -7,7 +7,7 @@ class Admin_Class
 
 	public function __construct()
 	{ 
-        $host_name='sql5c75f.carrierzone.com';
+        $host_name='localhost';
 		$user_name='maxtelcomm530491';
 		$password='Maliraza0897';
 		$db_name='TaskCMS_maxtelcomm530491';
