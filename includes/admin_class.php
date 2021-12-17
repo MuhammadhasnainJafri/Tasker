@@ -351,7 +351,8 @@ class Admin_Class
 			$status = $this->test_form_input_data($data['status']);
 			$address = $this->test_form_input_data($data['address']);
 			$coordinates = $this->test_form_input_data($data['coordinates']);
-			$record_id = $this->test_form_input_data($data['record_id']);
+			$etask = $this->test_form_input_data($data['etask']);
+			// $record_id = $this->test_form_input_data($data['record_id']);
 			
 			$task_complete_description = $this->test_form_input_data($data['task_complete_description']);
 			$uniquesavename=time().uniqid(rand(0,10000));
@@ -380,7 +381,7 @@ class Admin_Class
 				$update_task->bindparam(':id', $task_id);
 				$update_task->bindparam(':d', $address);
 			}else{
-				
+				if(file_exists($_FILES['image'])){
 				$file_name = $_FILES['image']['name'];
 				$file_size =$_FILES['image']['size'];
 				$file_tmp =$_FILES['image']['tmp_name'];
@@ -394,28 +395,33 @@ class Admin_Class
 				if(empty($errors)==true){
 					
 					move_uploaded_file($file_tmp,"uploads/{$uniquesavename}".$file_name);
+					$newfilename=$uniquesavename.$file_name;
 					
 				 }else{
 					print_r($errors);
 				 }
 
+				}else{
+					$newfilename=null;
+				}
 
 
-
-
-
-
+				if($etask==0){
 				 $update_task = $this->db->prepare("UPDATE task_info SET  status = $status WHERE task_id = $task_id ");
-				 $newfilename=$uniquesavename.$file_name;
-				 if($record_id==''){
+				}else {
+					$update_task = $this->db->prepare("UPDATE task_info SET  `status` = '$status',`etask`='$etask' WHERE task_id = $task_id ");
+					
+
+				}
+				//  if($record_id==''){
 					$record = $this->db->prepare("INSERT INTO `record`(`user_id`, `task_id`, `picture`, `description`,`coordinate`) VALUES ('$assign_to','$task_id','$newfilename','$task_complete_description','$coordinates')");
 					$record->execute();
-				}else{
-					$record = $this->db->prepare("UPDATE `record` SET `user_id`='$assign_to',`task_id`='$task_id',`picture`='$newfilename',`description`='$task_complete_description',`coordinate`='$coordinates' WHERE task_id = $task_id and user_id=$assign_to");
-					$record->execute();
-				}
+				// }else{
+				// 	$record = $this->db->prepare("UPDATE `record` SET `user_id`='$assign_to',`task_id`='$task_id',`picture`='$newfilename',`description`='$task_complete_description',`coordinate`='$coordinates' WHERE task_id = $task_id and user_id=$assign_to");
+				// 	$record->execute();
+				// }
 				
-				 
+				
 				}
 				
 
@@ -431,9 +437,11 @@ class Admin_Class
 		}
 		//update status
 	function updateStatus($date){
-		$query="UPDATE `task_info` SET `status`='0' WHERE `t_end_time`<'$date' AND `status`!=2 ";
+		$date=$date."%";
+		$query="UPDATE `task_info` SET `status`='0' WHERE `t_end_time`LIKE'$date' AND `status`!=2 AND `etask`='1' ";
 		$updateStatus = $this->db->prepare($query);
 		$updateStatus->execute();
+		print_r($updateStatus);
 
 
 	}

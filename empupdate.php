@@ -93,15 +93,30 @@ include("includes/sidebar.php");
 			                      	<option value="1" <?php if($row['status'] == 1){ ?>selected <?php } ?>>In Progress</option>
 			                      	<option value="2" <?php if($row['status'] == 2){ ?>selected <?php } ?>>Completed</option>
 			                      </select>
+                         
+                            <?php 
+                            if($row['status']!=0){
+
+                              echo '  <input type="hidden" name="etask" value="0">';
+                            }else{
+                              echo '  <input type="hidden" name="etask" value="1">';
+                            }
+                            
+                            ?>
                           </div>
                            </div>
                           <?php 
                           $user_id=$row['t_user_id'];
-                            $sql="SELECT * from record where user_id=$user_id and  task_id=$task_id";
+                          $flag=0;
+                            $sql="SELECT * from record where user_id=$user_id and  task_id=$task_id ORDER BY `id` DESC";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                               // output data of each row
                               while($record = $result->fetch_assoc()) {
+                                if($flag>0){
+                                  break;
+                                }
+                                $flag++;
                                ?>
                                  <input type="number" name="record_id" value="<?php echo $record['id'];  ?>" hidden>
                          
@@ -119,9 +134,11 @@ include("includes/sidebar.php");
                               <label for="inputType1">Picture of work</label>
                             </div>
                             <div class="col-md-9 showcase_content_area">
+                              <?php if($record['picture']!=null){?>
                               <img src="uploads/<?php  echo $record['picture'] ?>" alt="picture here" width="100" style="display:block;">
+                             <?php  }?>
                               <?php if($row['status'] != 2){  ?>
-                            <input type="file" name="image" id="file" accept="image/*" required style="margin-top:10px">
+                            <input type="file" name="image" id="file" accept="image/*"  style="margin-top:10px">
                           <?php } ?> 
                             
                           </div>

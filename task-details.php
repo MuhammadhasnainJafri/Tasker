@@ -208,39 +208,79 @@ integrity=
 				                      </tr>
                                   <?php
                                   $user_id=$row['t_user_id'];
-                                  $sql="SELECT * from record where user_id=$user_id and  task_id=$task_id";
-                                  $result = $conn->query($sql);
-                                  if ($result->num_rows > 0) {
-                                    // output data of each row
-                                    while($record = $result->fetch_assoc()) {
-                                     ?>
-                                      
-                               <tr>
-                                    <td>Commnet by worker</td>
-                                  <td>
                                   
-                                  <?php  
-                                    echo $record['description'];
-                                  ?>
-                                  </td>
-                                  </tr>
-                                  <tr>
-                                    <td>Work Image</td>
-                                  <td>
-                                  
-                                  <img id="myImg" src="uploads/<?php  echo $record['picture'] ?>" alt="picture here" width="100" style="display:block;">
-                             <?php  $coordinate=$record['coordinate'] ?>
-                                  </td>
-                                  </tr>
-                                
-                                   <?php }}
 
 ?>
                                
 				                    </tbody>
 				                  </table>
 				                </div>
-                        <?php if($coordinate!=null || $coordinate!=''){?>
+
+
+
+                        <?php 
+        $counter=1;
+        $sql="SELECT * from record where user_id=$user_id and  task_id=$task_id";
+                                  $result = $conn->query($sql);
+                                  if ($result->num_rows > 0) {
+                                    ?>
+<h3 class="h3 m-3 text-center font-weight-bolder">Employee Comments order by latest to old</h3>
+                        <table class="table table-image">
+		  <thead>
+		    <tr>
+		      <th scope="col">ID</th>
+		      <th scope="col">Image</th>
+		      <th scope="col">Comment</th>
+		     
+		    </tr>
+		  </thead>
+		  <tbody>
+       <?php
+                                    // output data of each row
+                                    while($record = $result->fetch_assoc()) {
+                                     ?>
+                                      
+		    <tr>
+		      <th scope="row"><?php echo $counter;$counter++; ?></th>
+		      <td class="w-25">
+            <?php if($record['picture']!=null) {?>
+			      <img style="cursor: pointer;"  src="uploads/<?php  echo $record['picture'] ?>" onclick="imgModal(this)" class=" img-fluid img-thumbnail" alt="Sheep">
+              <?php }else{echo "Image is not Uploaded";} ?>
+         
+          </td>
+		      <td> <?php  
+
+
+          
+                                    echo $record['description'];
+                                  ?></td>
+		     
+		    </tr>
+
+       
+                             
+                                  
+                                  
+                             <?php  $coordinate=$record['coordinate']; ?>
+                                  
+                                
+                                   <?php } ?>
+		    
+		  </tbody>
+		</table>   
+
+<?php }?>
+
+
+
+
+
+
+
+
+
+                        <?php if($coordinate!=null || $coordinate!=''){
+                          ?>
                         <div class="row m-3">
                           <div class="col-4">
                             <h3>Location </h3>
@@ -324,11 +364,13 @@ eiffelMarker.bindPopup("Employee Location").openPopup();
     </script>
         
         <script>
+          var modal = document.getElementById("myModal");
+          function imgModal(img){
           // Get the modal
-var modal = document.getElementById("myModal");
+
 
 // Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById("myImg");
+// var img = document.getElementsByClassName("myImg");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
 img.onclick = function(){
@@ -336,14 +378,15 @@ img.onclick = function(){
   modalImg.src = this.src;
   captionText.innerHTML = this.alt;
 }
-
+          }
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
-} 
+}
+ 
         </script>
         <!-- content viewport ends -->
         <?php  
