@@ -437,8 +437,8 @@ class Admin_Class
 		}
 		//update status
 	function updateStatus($date){
-		$date=$date."%";
-		$query="UPDATE `task_info` SET `status`='0' WHERE `t_end_time`LIKE'$date' AND `status`!=2 AND `etask`='1' ";
+		
+		$query="UPDATE `task_info` SET `status`='0' WHERE `t_end_time`<'$date' AND `status`!=2 AND `etask`='0' ";
 		$updateStatus = $this->db->prepare($query);
 		$updateStatus->execute();
 		print_r($updateStatus);
